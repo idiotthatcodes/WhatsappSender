@@ -1,49 +1,102 @@
-// Define a function to handle click events on the context menu items
-function ExtensionOnClick(info, tab) {
+var belOptie = "Optie 1, Best"
+
+function ExtensionOnClick(info) {
     if (info.menuItemId === "whatsappChat") {
+        
         const phoneNumber = info.selectionText;
-        const whatsappURL = `https://web.whatsapp.com/send?phone=${phoneNumber}`;
+        
+        
+        const whatsappURL = `https://web.whatsapp.com/send?phone=31${phoneNumber}&text=${encodeURIComponent(`Beste klant, \n\n\nU kunt ons altijd bereiken via de onderstaande gegevens.\n\n📞 085 111 9393 ${belOptie}\n💻 best@maastelecom.nl. \nOf plan een afspraak: www.telecombinatie.nl/afspraak\n\nTot ziens 📞📱  \n\nMet vriendelijke groet, \nTeam Maas Telecombinatie Best.`)}`;
+        
+        
         chrome.tabs.create({ url: whatsappURL });
-    } else if (info.menuItemId.startsWith("preFilledText")) {
-        const phoneNumber = "ReplaceWithPhoneNumber"; // Replace with the actual phone number
-        const preFilledText = preFilledTexts[info.menuItemId];
-        const whatsappURL = `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(preFilledText)}`;
-        chrome.tabs.create({ url: whatsappURL });
+    } 
+    if(info.menuItemId === "outofcontract") {
+        const phoneNumber = info.selectionText;
+
+        // Beste klant,  \n\n U heeft via onze winkel een abonnement afgesloten op uw mobiele telefoon. Inmiddels is dit abonnement verlopen en is het gekomen in een variabel contract. \nDe prijs van het abonnement blijft hierbij langzaam stijgen. Tevens kunt u hierdoor niet meer kosteloos gebruiken van onze service in de winkel en kan het zijn dat uw telefoon hierdoor gevoelig is geworden voor online fraude. \nOm gebruik te kunnen maken van onze expertise en service in de winkel is het raadzaam om uw telefoon en contract na te laten kijken in onze winkel. \n\nOm verzekerd te blijven van een goede service hebben wij verschillende providers in ons portfolio. \nBij verlenging van uw contract krijgt u gratis voor de duur van uw abonnement ons servicepakket gold. \nWij nodigen u graag uit in onze winkel in Best. \n\nU kunt ons altijd bereiken via de onderstaande gegevens.\n\n📞 085 111 9393 ${belOptie}\n💻 best@maastelecom.nl. \nOf plan een afspraak: www.telecombinatie.nl/afspraak\n\nTot ziens 📞📱  \n\nMet vriendelijke groet, \nTeam Maas Telecombinatie Best.
+        const whatsappURL = `https://web.whatsapp.com/send?phone=31${phoneNumber}&text=${encodeURIComponent(`Beste klant,  \n\nU heeft via onze winkel een abonnement afgesloten op uw mobiele telefoon. Inmiddels is dit abonnement verlopen en is het gekomen in een variabel contract. \n\nDe prijs van het abonnement blijft hierbij langzaam stijgen. Tevens kunt u hierdoor niet meer kosteloos gebruiken van onze service in de winkel en kan het zijn dat uw telefoon hierdoor gevoelig is geworden voor online fraude. \n\nOm gebruik te kunnen maken van onze expertise en service in de winkel is het raadzaam om uw telefoon en contract na te laten kijken in onze winkel. \n\nOm verzekerd te blijven van een goede service hebben wij verschillende providers in ons portfolio. \nBij verlenging van uw contract krijgt u gratis voor de duur van uw abonnement ons servicepakket gold. \nWij nodigen u graag uit in onze winkel in Best. \n\nU kunt ons altijd bereiken via de onderstaande gegevens.\n\n📞 085 111 9393 ${belOptie} \n💻 best@maastelecom.nl. \nOf plan een afspraak: www.telecombinatie.nl/afspraak\n\nTot ziens 📞📱  \n\nMet vriendelijke groet, \nTeam Maas Telecombinatie Best.`)}`
+
+        chrome.tabs.create({url:whatsappURL})
     }
 }
 
-// Pre-filled texts for the dropdown menu
-const preFilledTexts = {
-    preFilledText1: "This is the pre-filled text for Text 1.",
-    preFilledText2: "This is the pre-filled text for Text 2.",
-    preFilledText3: "This is the pre-filled text for Text 3.",
-};
 
-// Add a listener for click events on the context menu
 chrome.contextMenus.onClicked.addListener(ExtensionOnClick);
 
-// Add a listener for when the extension is installed
+
 chrome.runtime.onInstalled.addListener(function () {
-    // Create a context menu item for opening WhatsApp chat
     chrome.contextMenus.create({
-        title: "Open WhatsApp Chat",
+        title: `Bel Optie: ${belOptie}`,
         contexts: ["selection"],
-        id: "whatsappChat"
+        id: "Note2",
+        enabled: false
+    })
+    chrome.contextMenus.create({
+        title: "Open een WhatsApp Chat",
+        contexts: ["selection"], 
+        id: "whatsappChat" 
     });
 
-    // Create a parent context menu item for pre-filled texts
-    const parent = chrome.contextMenus.create({
-        title: "Pre-filled Texts",
-        contexts: ["selection"]
-    });
+    chrome.contextMenus.create({
+        title: "'U bent verlengbaar' berichten..",
+        contexts: ["selection"],
+        id: "Note1",
+        enabled: false
+    })
 
-    // Create child context menu items for pre-filled texts
-    for (const [key, value] of Object.entries(preFilledTexts)) {
-        chrome.contextMenus.create({
-            title: "Text " + key.replace("preFilledText", ""),
-            parentId: parent,
-            contexts: ["selection"],
-            id: key
-        });
-    }
+    let kpn_verlengbaar = chrome.contextMenus.create({
+        title: 'KPN Verlengbaar',
+        contexts: ["selection"],
+        id: 'kpn_verlengbaar'
+    })
+
+    let ben_verlengbaar = chrome.contextMenus.create({
+        title: 'BEN Verlengbaar',
+        contexts: ["selection"],
+        id: 'ben_verlengbaar'
+    })
+
+    let vodafone_verlengbaar = chrome.contextMenus.create({
+        title: 'Vodafone Verlengbaar',
+        contexts: ["selection"],
+        id: 'vodafone_verlengbaar'
+    })
+    let odido_verlengbaar = chrome.contextMenus.create({
+        title: 'Odido Verlengbaar',
+        contexts: ["selection"],
+        id: 'odido_verlengbaar'
+    })
+
+    let youfone_verlengbaar = chrome.contextMenus.create({
+        title: 'Youfone Verlengbaar',
+        contexts: ["selection"],
+        id: 'youfone_verlengbaar'
+    })
+
+    let lebara_verlengbaar = chrome.contextMenus.create({
+        title: 'Lebara Verlengbaar',
+        contexts: ["selection"],
+        id: 'lebara_verlengbaar'
+    })
+
+    chrome.contextMenus.create({
+        title: "Andere berichten..",
+        contexts: ["selection"],
+        id: "Note3",
+        enabled: false
+    })
+
+    let gg_bericht = chrome.contextMenus.create({
+        title: 'Telefonisch geen gehoor..',
+        contexts: ["selection"],
+        id: 'gg_bericht'
+    })
+
+
+    let outofcontract = chrome.contextMenus.create({
+        title: 'Out-of-Contract',
+        contexts: ["selection"],
+        id: 'outofcontract'
+    })
 });
