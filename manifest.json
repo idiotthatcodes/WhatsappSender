@@ -1,0 +1,13 @@
+{
+    "name": "Whatsapp Sender",
+    "description": "Stuur WhatsApp berichten naar het geselecteerde nummer",
+    "version": "1.0",
+    "icons": {
+        "16": "icon.png"
+    },
+    "permissions": ["contextMenus", "scripting"],
+    "background": {
+        "service_worker": "sender.js"
+    },
+    "manifest_version": 3
+}
