@@ -9,6 +9,7 @@ function ExtensionOnClick(info) {
         
         // Open a new tab with the WhatsApp web URL
         chrome.tabs.create({ url: whatsappURL });
+        console.log('[WhatsAppSender] -> Een nieuwe pagina word geopent')
     }
 }
 
