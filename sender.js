@@ -1,4 +1,27 @@
-var belOptie = "Optie 1, Best"
+// Default value for belOptie
+let belOptie
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if (request.msg === "optie_update") {
+        console.log("Received optie_update message in content script:", request.data.subject, request.data.content);
+        belOptie = request.data.content;
+        sendResponse({ method: "peepee", data: "poopoo"})
+    }
+});
+
+// // Event listener for messages from popup.js
+// chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+//     if (request.action === 'updateBelOptie') {
+//         // Update the value of belOptie
+//         belOptie = request.belOptie;
+//         console.log('Updated belOptie:', belOptie);
+//         sendResponse(belOptie);
+//     } else if (request.action === 'getCurrentBelOptie') {
+//         // Send the current value of belOptie to the popup.js
+//         sendResponse(belOptie);
+//     }
+// });
+
 
 function ExtensionOnClick(info) {
     if (info.menuItemId === "whatsappChat") {

@@ -5,9 +5,15 @@
     "icons": {
         "16": "icon.png"
     },
-    "permissions": ["contextMenus", "scripting"],
+    "permissions": ["contextMenus", "storage", "scripting"], 
     "background": {
         "service_worker": "sender.js"
+    },
+    "action": {
+        "default_popup": "popup.html", 
+        "default_icon": {
+            "16": "icon.png"
+        }
     },
     "manifest_version": 3
 }
