@@ -1,5 +1,5 @@
 // Default value for belOptie
-let belOptie
+var belOptie
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.msg === "optie_update") {
