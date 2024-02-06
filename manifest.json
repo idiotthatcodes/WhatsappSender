@@ -9,11 +9,6 @@
     "background": {
         "service_worker": "sender.js"
     },
-    "action": {
-        "default_popup": "popup.html", 
-        "default_icon": {
-            "16": "icon.png"
-        }
-    },
-    "manifest_version": 3
+    "manifest_version": 3,
+    "author": "Aaron van Lissum"
 }
