@@ -1,12 +1,12 @@
 // Default value for belOptie
 var belOptie = "Optie 1, Best";
-var locatie;
-var mail = `${locatie.toLowerCase()}@maastelecom.nl`
+var locatie = "Best";
+var mail = "best@maastelecom.nl";
 function updateContextMenuTitle() {
   chrome.contextMenus.update("Note2", {
     title: `Bel Optie: ${belOptie}`,
   });
-
+	
   
 }
 
@@ -84,6 +84,7 @@ function ExtensionOnClick(info) {
     const whatsappURL = `https://web.whatsapp.com/send?phone=31${phoneNumber}&text=${encodeURIComponent(
       `Beste klant, \n\n Wij hebben u al een tijdje gemist in onze winkel. In de loop van de tijd is hierdoor het contract uit zijn looptijd gegaan. Dit kan gevolgen hebben voor uw pakket en de bijbehorende prijs van het abonnement. In de afgelopen tijd zijn door diverse providers de prijzen behoorlijk verhoogt door de indexering op de contracten. Hierdoor is het interessant om langs de winkel te komen, om samen te kijken of het lonend is om te verlengen of dat juist overstappen gaat lonen voor u. In alles ontzorgen wij u met deze aanvraag. Dit kan u maandelijks een mooie besparing op leveren. Tevens kunt u dan weer volop genieten van de service en expertise van onze medewerkers in onze winkel. U krijgt dan ook weer gratis ons service pakket gold voor de duur van de looptijd van u contract, helemaal gratis!\n\nWij nodigen u graag uit in onze winkel in ${locatie}. \n\nU kunt ons altijd bereiken via de onderstaande gegevens.\n\n📞 085 111 9393 ${belOptie}\n💻 ${mail}. \nOf plan een afspraak: https://telecombinatie.nl/afspraak \n\nTot ziens 📞📱  \n\nMet vriendelijke groet, \nTeam Maas Telecombinatie ${locatie}.`
     )}`;
+    chrome.tabs.create({ url: whatsappURL});
   }
 }
 
@@ -94,20 +95,26 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     case "optie1":
       belOptie = "Optie 1, Best";
       locatie = "Best";
+      mail = "best@maastelecom.nl";
       break;
     case "optie2":
       belOptie = "Optie 2, Vught";
       locatie = "Vught";
+      mail = "vught@maastelecom.nl";
       break;
     case "optie3":
       belOptie = "Optie 3, Schijndel";
       locatie = "Schijndel";
+      mail = "schijndel@maastelecom.nl";
       break;
     case "optie4":
       belOptie = "Optie 4, Veldhoven";
       locatie = "Veldhoven";
+      mail = "veldhoven@maastelecom.nl";
       break;
     default:
+      locatie = "Best";
+      mail = "best@maastelecom.nl";
       break;
   }
   updateContextMenuTitle();
