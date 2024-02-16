@@ -5,7 +5,7 @@
     "icons": {
         "16": "icon.png"
     },
-    "permissions": ["contextMenus", "storage", "scripting"], 
+    "permissions": ["contextMenus", "storage", "scripting", "notifications"], 
     "background": {
         "service_worker": "sender.js"
     },

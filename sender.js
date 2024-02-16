@@ -1,3 +1,6 @@
+const nummerRegex = /^06\d{8,}$/;
+
+
 // Default value for belOptie
 var belOptie = "Optie 1, Best";
 var locatie = "Best";
@@ -11,6 +14,14 @@ function updateContextMenuTitle() {
 }
 
 function ExtensionOnClick(info) {
+  if(!nummerRegex.test(info.selectionText)) return chrome.notifications.create('Inv_Num', {
+    type: 'basic',
+    iconUrl: './icon.png',
+    title: 'Ongeldig',
+    message: 'Het geselecteerde telefoonnummer is ongeldig',
+    priority: 2
+  })
+  
   if (info.menuItemId === "whatsappChat") {
     const phoneNumber = info.selectionText;
 
